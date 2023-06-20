@@ -20,8 +20,9 @@ function addTodoItem(text) {
 }
 
 function saveTodoItem(text) {
+  console.log(" save new ")
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'bdd.php', true);
+  xhr.open('POST', 'http://localhost/echrak/CodeClause_To_Do_List/bdd.php', true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
