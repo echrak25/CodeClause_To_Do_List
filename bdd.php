@@ -1,8 +1,8 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,18 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // Prepare the SQL statement
-  $stmt = $conn->prepare("INSERT INTO todo_items (text) VALUES (?)");
-  $stmt->bind_param("s", $todoText);
+  $todoText = $conn->real_escape_string($todoText);
+  $sql = "INSERT INTO  todos (text) VALUES ('$todoText')";
 
   // Execute the statement
-  if ($stmt->execute()) {
+  if ($conn->query($sql) === TRUE) {
     echo "To-do item saved successfully.";
   } else {
-    echo "Error: " . $stmt->error;
+    echo "Error: " . $conn->error;
   }
 
-  // Close the statement and connection
-  $stmt->close();
+  // Close the connection
   $conn->close();
 }
 ?>
